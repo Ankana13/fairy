@@ -14,7 +14,8 @@ function preload()
 	starImg = loadImage("images/star.png");
 	bgImg = loadImage("images/starNight.png");
 	//load animation for fairy here
-	//fairyImg = loadImage("fairy.png");
+
+	fairyImg = loadImage("images/fairy.png");
 }
 
 function setup() {
@@ -36,14 +37,15 @@ function setup() {
 	starBody = Bodies.circle(650 , 30 , 5 , {restitution:0.5, isStatic:true});
 	World.add(world, starBody);
 	
-fairy = createSprite(400,700);
-//fairy.addImage(fairyImg);
-engine = Engine.create();
-	world = engine.world;
+fairy = createSprite(200,500);
+fairy.addImage(fairyImg);
+fairy.scale = 0.2;
 
 
-fairyBody = Bodies.rectangle(50,10,50,50,{isStatic:true});
-World.add(world,fairyBody);
+
+
+//fairyBody = Bodies.rectangle(200,500,50,50,{isStatic:true});
+//World.add(world,fairyBody);
 
 
 ground1 = new Ground(400,730,800,10);
@@ -60,16 +62,19 @@ function draw() {
   star.x= starBody.position.x 
   star.y= starBody.position.y 
 
-  console.log(star.y);
+ // console.log(star.y);
 
- fairy.x= fairyBody.position.x 
-  fairy.y= fairyBody.position.y 
+ //.x= fairyBody.position.x 
+  //fairy.y= fairyBody.position.y 
 
   //write code to stop star in the hand of fairy
 ground1.display();
+if(star.y > 470 && starBody.position.y > 470 ){
+	Matter.Body.setStatic(starBody,true); 
+}
 
   drawSprites();
-
+  keyPressed();
 }
 
 function keyPressed() {
@@ -79,8 +84,8 @@ function keyPressed() {
 	}
 
 	//writw code to move fairy left and right
-	if(keyCode === LEFT_ARROW){
-		fairy.velocityY = -2;
-		Matter.Body.setStatic(fairyBody,false); 
+	if(keyCode === RIGHT_ARROW){
+		fairy.x = fairy.x + 20;
+		
 	}
 }
